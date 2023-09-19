@@ -1,0 +1,39 @@
+syntax = "v1"
+
+import (
+	"user/user.api"
+)
+
+@server(
+	prefix: usercenter/v1
+	group: user
+)
+service usercenter {
+	@doc(
+		summary: "register"
+	)
+	@handler register
+	post /user/register (RegisterReq) returns (RegisterResp)
+
+	@doc(
+		summary: "Login"
+	)
+
+	@handler login
+	post /user/login (LoginReq) returns (LoginResp)
+}
+
+// jwt
+@server(
+	prefix: usercenter/v1
+	group: user
+	jwt: Auth
+)
+service usercenter {
+
+	@handler detail
+	post /user/detail (UserInfoReq) returns (UserInfoResp)
+
+	@handler WXMiniAuth
+	post /user/WXMiniAuth (WXMiniAuthReq) returns (WXMiniAuthResp)
+}
